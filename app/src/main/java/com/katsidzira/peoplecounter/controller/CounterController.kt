@@ -2,14 +2,9 @@ package com.katsidzira.peoplecounter.controller
 
 import com.katsidzira.peoplecounter.model.Counter
 
-object GameController {
+object CounterController {
 
-    private var counter: Counter = Counter()
-
-    init {
-        counter.people = 0
-        counter.total = 0
-    }
+    private var counter: Counter = Counter(0, 0)
 
     fun getPeople(): Int? {
         return counter.people
@@ -18,4 +13,13 @@ object GameController {
     fun getTotal(): Int? {
         return counter.total
     }
+
+    fun addPerson() {
+        counter.people += 1
+    }
+
+    fun removePerson() {
+        counter.people -= 1
+    }
+
 }
