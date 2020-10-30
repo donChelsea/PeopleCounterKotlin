@@ -16,10 +16,16 @@ object CounterController {
 
     fun addPerson() {
         counter.people += 1
+        counter.total += 1
     }
 
     fun removePerson() {
-        counter.people -= 1
+        if (counter.people >= 1) counter.people -= 1
+    }
+
+    fun reset() {
+        counter.people = 0
+        counter.total = 0
     }
 
 }
