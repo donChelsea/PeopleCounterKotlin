@@ -42,8 +42,11 @@ class MainActivity : AppCompatActivity() {
     private fun updateViews() {
         updateButtonVisibility()
         updateTextColor()
-        binding.textviewPeople.text = "${controller.getPeople().toString()} people"
-        binding.textviewTotal.text = "Total: ${controller.getTotal().toString()}"
+
+        val currentTotal = controller.getTotal().toString()
+        val currentPeople = controller.getPeople().toString()
+        binding.textviewPeople.text = "$currentPeople people"
+        binding.textviewTotal.text = "Total: $currentTotal"
     }
 
     private fun updateTextColor() {
@@ -64,7 +67,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        Log.i("main activity", "onSaveInstanceState")
 
         val currentTotal = controller.getTotal().toString()
         val currentPeople = controller.getPeople().toString()
@@ -74,11 +76,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        Log.i("main activity", "onRestoreInstanceState")
 
-        val currentTotal = savedInstanceState?.getString("total")
-        val currentPeople = savedInstanceState?.getString("people")
-
+        val currentTotal = savedInstanceState.getString("total")
+        val currentPeople = savedInstanceState.getString("people")
         binding.textviewPeople.text = "$currentPeople people"
         binding.textviewTotal.text = "Total: $currentTotal"
 
