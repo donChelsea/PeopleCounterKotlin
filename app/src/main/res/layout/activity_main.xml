@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:text="@{`Total: ` + controller.total}"
             android:textSize="24sp"
+            android:textColor="@android:color/black"
             android:layout_margin="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:text="@{controller.people + ` people`}"
             android:textSize="28sp"
+            android:textColor="@android:color/black"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center_horizontal" />
