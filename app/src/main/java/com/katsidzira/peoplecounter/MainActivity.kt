@@ -3,6 +3,8 @@ package com.katsidzira.peoplecounter
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -38,17 +40,49 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateViews() {
-        if (controller.getPeople()!! > 0) {
-            binding.buttonRemove.isVisible = true
-        } else {
-            binding.buttonRemove.isInvisible = true
-        }
+        updateButtonVisibility()
+        updateTextColor()
+        binding.textviewPeople.text = "${controller.getPeople().toString()} people"
+        binding.textviewTotal.text = "Total: ${controller.getTotal().toString()}"
+    }
+
+    private fun updateTextColor() {
         if (controller.getPeople()!! >= 15) {
             binding.textviewPeople.setTextColor(Color.RED)
         } else {
             binding.textviewPeople.setTextColor(Color.BLACK)
         }
-        binding.textviewPeople.text = "${controller.getPeople().toString()} people"
-        binding.textviewTotal.text = "Total: ${controller.getTotal().toString()}"
+    }
+
+    private fun updateButtonVisibility() {
+        if (controller.getPeople()!! > 0) {
+            binding.buttonRemove.isVisible = true
+        } else {
+            binding.buttonRemove.isInvisible = true
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.i("main activity", "onSaveInstanceState")
+
+        val currentTotal = controller.getTotal().toString()
+        val currentPeople = controller.getPeople().toString()
+        outState.putString("total", currentTotal)
+        outState.putString("people", currentPeople)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Log.i("main activity", "onRestoreInstanceState")
+
+        val currentTotal = savedInstanceState?.getString("total")
+        val currentPeople = savedInstanceState?.getString("people")
+
+        binding.textviewPeople.text = "$currentPeople people"
+        binding.textviewTotal.text = "Total: $currentTotal"
+
+        updateButtonVisibility()
+        updateTextColor()
     }
 }
